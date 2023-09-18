@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact us</title>
+    <meta
+      name="description"
+      content="A classic company or blog layout with a sidebar. Built with Pico CSS."
+    />
+    <!-- Pico.css -->
+    <link rel="stylesheet" href="./css/pico-1.5.9/css/pico.min.css" />
+    <link rel="stylesheet" href="./css/custom.css" />
+    <link rel="stylesheet" href="./css/NavBar.css" />
+  </head>
+<body>
+  <%- include('./partials/navbar.ejs') %>
+  <main class="container">
+    <article class="grid">
+      <div style="width: 2000px;">
+        <hgroup>
+          <h1>Contact Us</h1>
+          <h2>A minimalist layout for Login pages</h2>
+        </hgroup>
+        <form action="/ContactSubmit" method="POST">
+          <div class="grid">
+            <label for="firstName">
+              First Name:
+              <input
+                type="text"
+                name="name"
+                placeholder="First Name"
+                aria-label="first name"
+                autocomplete="nickname"
+                id="firstName"
+                class="name"
+                required
+              />
+            </label>
+            <label for="lastName">
+              Last Name:
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                aria-label="last name"
+                autocomplete="nickname"
+                id="lastName"
+                class="name"
+                required
+              />
+            </label>
+            
+          </div>
+          <label for="phone">
+            Phone Number:
+            <input
+              type="tel"
+              name="phone"
+              placeholder="(###) ### - ####"
+              aria-label="phone number"
+              autocomplete="phone"
+              id="phone"
+              required
+            />
+          </label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            aria-label="email"
+            autocomplete="email"
+            required
+          />
+          <textarea name="" id="" cols="30" rows="10" style="resize: none;"></textarea>
+
+          <button type="submit" class="contrast">Login</button>
+        </form>
+      </div>
+    </article>
+  </main>
+</body>
+<%- include('./partials/footer.ejs') %>

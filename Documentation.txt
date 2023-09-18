@@ -1,0 +1,24 @@
+Classes used for dealing with JSON files
+
+
+JsonTools class {
+  static deleteUser(usersName) // Deletes user with specified name
+
+  static writeJson(pathToJsonFile, parsedJsonData) // Writes JSON data to the specified file 
+
+  static readJson(pathToJsonFile) // Reads data from JSON file specified
+}
+
+Login class {
+  constructor(req, res) {
+    this.loginData = {
+      login: req.body.login,
+      password: req.body.password,
+      email: req.body.email
+    }
+  }
+
+  saveUser() // Saves the user to the user DB
+
+  static validateLogin(loginAttempt) // Checks if the login attempt matches a user
+}

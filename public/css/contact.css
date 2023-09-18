@@ -1,0 +1,17 @@
+body {
+  display: grid;
+}
+
+form {
+  width: 300px;
+  height: 400px;
+  justify-self: center;
+  background-color: aquamarine;
+  padding: 10px;
+}
+
+.formGroup {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}/*# sourceMappingURL=contact.css.map */

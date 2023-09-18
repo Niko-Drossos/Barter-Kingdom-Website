@@ -1,0 +1,65 @@
+$TextColor : rgba(255, 255, 255, 0.80);
+
+$HeadText : 111px;
+$HeadBackground : rgba(90, 1, 190, 0.32);
+
+.container {
+	
+	header {
+		height: 150px;
+		background-color: $HeadBackground;
+		text-align: center;
+		color: $TextColor;
+		text-shadow: $BodyBackground 1px 11px 11px;
+		font-size: $HeadText;
+	}
+	main {
+		display: grid;
+		justify-content: center;
+		align-items: start;
+		height: auto;
+		p {
+			color: $TextColor;
+			font-size: calc($HeadText / 4);
+		}
+	}
+}
+
+.circle {
+	stroke-width: 7px;
+	stroke-opacity: 100%;
+	fill: none;
+	a {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.line {
+	stroke: #5008a2;
+	stroke-width: 2;
+}
+
+#downloadMetaMask {
+	background-color: #222222;
+	border-radius: 10px;
+	h2, p {
+		color: white;
+	}
+	> div {
+		width: 100%;
+		display: grid;
+		grid-column: auto auto;
+		a {
+			width: 75px;
+			text-decoration: none;
+			color: wheat;
+			background-color: #5008a2;
+			text-align: center;
+			border-radius: 5px;
+			&:hover {
+				background-color: #7c34ce;
+			}
+		}
+	}
+}

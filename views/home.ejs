@@ -1,0 +1,46 @@
+<%- include('./partials/head.ejs') %>
+  <link href="./css/HomePage.css" rel="StyleSheet">
+  <script defer src="./js/BrowserRuntime.js"></script>
+</head>
+<%- include('./partials/navbar.ejs') %>
+<body>
+  <div class="container">
+    <header>
+      Barter Kingdom
+    </header>
+    <main>
+      <dialog id="downloadMetaMask">
+        <h2>Dialog Title</h2>
+        <p>Please Install The <a >MetaMask</a> Extension</p>
+        <div>
+          <button id="closeDialog">Close</button>
+          <a id="download" href="https://metamask.io/download/" target="_blank">Download</a>
+        </div>
+      </dialog>
+      
+      <p>
+        <i>"<b>Trading</b> in the <b>Future</b> with the <b>Past</b>"</i>
+      </p>
+      <button id="connect-button">Connect MetaMask Wallet</button>
+      <button id="add-token-button">Add BKU to MetaMask</button>
+      <button id="checkOnBKU">Check MetaMask</button>
+      <!-- Profile select hexagon -->
+      <svg width="420px" height="420px" id="profileSelect">
+        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color: rgb(80, 8, 162);" />
+          <stop offset="40%" style="stop-color: rgb(20, 97, 108);" />
+          <stop offset="100%" style="stop-color: rgb(10, 50, 120);" />
+        </linearGradient>
+      </svg>
+    </main>
+    <%- include('./partials/footer.ejs') %>
+  </div>
+<!--   <script>
+    // Check if the code is running in Node.js
+    if (typeof module !== 'undefined' && module.exports) {
+      // Load node-script.js for Node.js environment
+      require('./MetaMaskAPI.js');
+    }
+  </script> -->
+</body>
+</html>

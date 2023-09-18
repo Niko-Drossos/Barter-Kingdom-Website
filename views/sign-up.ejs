@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign in example • Pico.css</title>
+    <meta name="description" content="A minimalist layout for Login pages. Built with Pico CSS." />
+    <!-- Pico.css -->
+    <link rel="stylesheet" href="./css/pico-1.5.9/css/pico.min.css" />
+    <!-- Custom styles for this example -->
+    <link rel="stylesheet" href="./css/custom.css" />
+    <link rel="stylesheet" href="./css/NavBar.css" />
+  </head>
+
+  <body>
+    <%- include('./partials/navbar.ejs') %>
+
+    <!-- Main -->
+    <main class="container">
+      <article class="grid">
+        <div>
+          <hgroup>
+            <h1>Sign up</h1>
+            <h2>A minimalist layout for Login pages</h2>
+          </hgroup>
+          <form action="/UserSignup" method="POST">
+            <input
+              type="text"
+              name="login"
+              placeholder="Login"
+              aria-label="Login"
+              autocomplete="nickname"
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              aria-label="Password"
+              autocomplete="current-password"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              aria-label="email"
+              autocomplete="email"
+              required
+            />
+            <fieldset>
+              <label for="remember">
+                <input type="checkbox" role="switch" id="remember" name="remember" />
+                Remember me
+              </label>
+              <label for="sign-in">
+                <a id="sign-in" href="/sign-in">Sign in</a>
+              </label>
+            </fieldset>
+            <button type="submit" class="contrast">Login</button>
+          </form>
+        </div>
+        <!-- <div>
+          use this later for deleting users
+          <form action="/DeleteUser" method="POST">
+            <input type="text" name="userDelete">
+            <button type="submit">submit</button>
+          </form>
+        </div> -->
+      </article>
+    </main>
+    <!-- ./ Main -->
+
+    <%- include('./partials/footer.ejs') %>
+  </body>
+</html>
