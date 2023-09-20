@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= user.name %>'s Profile</title>
+    <meta name="description" content="A minimalist layout for Login pages. Built with Pico CSS." />
+    <!-- Pico.css -->
+    <link rel="stylesheet" href="./css/pico-1.5.9/css/pico.min.css" />
+    <!-- Custom styles for this example -->
+    <link rel="stylesheet" href="./css/custom.css" />
+    <link rel="stylesheet" href="./css/NavBar.css" />
+  </head>
+<body>
+  <%- include('./partials/navbar.ejs') %>
+  <button type="submit" method="post" action="/DeleteUser/<%= user._id %>">Delete User</button>
+  <%- include('./partials/footer.ejs') %>
+</body>
+</html>
