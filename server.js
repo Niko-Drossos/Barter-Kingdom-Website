@@ -1,11 +1,13 @@
 const express = require('express')
 const session = require('express-session');
 const app = express()
-const fs = require('fs')
+// const fs = require('fs')
 const multer = require('multer');
 const mongoose = require('mongoose')
-const mongodb = require('mongodb')
-const upload = multer({ dest: 'public/uploads/' })
+const bcrypt = require('bcrypt')
+/* const mongodb = require('mongodb')
+const upload = multer({ dest: 'public/uploads/' }) */
+require('dotenv').config()
 
 const port = 3000
 
@@ -31,7 +33,7 @@ app.use(session({
   saveUninitialized: true,
 }));
 
-const mongoURL = 'mongodb+srv://ndross427:9205DRIVE777@cluster0.ipo5a6z.mongodb.net/Barter_Kindgom'
+const mongoURL = process.env.URL
 
 mongoose.connect(mongoURL)
   .then(() => {
@@ -49,6 +51,8 @@ class Login {
       password: req.body.password,
       email: req.body.email,
     };
+    this.req = req; // Store the request object
+    this.res = res; // Store the response object
   }
 
   async saveUser() {
@@ -61,28 +65,47 @@ class Login {
     }
   }
 
-  static async logIn(user) {
-    try{
-      const person = await Person.findOne(user)
-      let output = person ? `Logged in` : `Failed to log in user` 
-      console.log(output)
-      return true
-    }
-    catch (err) {
-      console.error(err)
-      return false
+  // Modified login method with context
+  async logIn() {
+    try {
+      let { login, password } = this.loginData
+      const user = await Person.findOne({login, password});
+      if (!user) {
+        return false;
+      }
+
+      // Compare the provided password with the hashed password in the database
+      const passwordMatch = await bcrypt.compare(
+        this.loginData.password,
+        user.password
+      );
+
+      if (passwordMatch) {
+        // Set the user's _id in the session
+        this.req.session.userId = user._id;
+        console.log('User logged in successfully');
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      this.res.status(500).send('Login failed.');
     }
   }
 
-  static async validateLogin(loginAttempt) {
+  static async findUser(search) {
     try {
-      const user = await Person.findOne(loginAttempt);
-      let works = user || false
-      return works
+      let { login, password } = search
+      const users = await Person.findOne({ login: login, password: password })
+      // If users is true user was found
+      return users
     } catch (error) {
-      console.error('Error validating login:', error);
+      console.error(error);
+      /* ------------------------------ return false ------------------------------ */
     }
   }
+
 }
 
 /* -------------------------- GET requests for app -------------------------- */
@@ -94,17 +117,13 @@ const validURL = ['/', 'about', 'bku', 'contact', 'sign-in', 'sign-up', 'profile
 
 app.get('/', async (req, res) => {
   // let user = localStorage.getItem('LoggedInUser')
-  if ( req.session.isLoggedIn ) {
-    res.render('Main');
 
-  } else {
-    res.render('sign-in')
-  }
+  res.render('Main');
 });
 
 app.get('/:page', (req, res) => {
   let page = req.params.page
-  validURL.includes(page) ? res.render(page) : res.redirect('/')
+  validURL.includes(page) ? res.render(page) : res.render('lostPage')
 })
 
 app.get('/*', (req, res) => {
@@ -119,24 +138,24 @@ app.post('/UserSignup', (req, res) => {
   user.saveUser()
   res.redirect('/')
 })
+
 //! WORKING ON THIS
 app.post('/UserLogin', async (req, res) => {
-  let input = {
+  let loginInfo = {
     login: req.body.login,
     password: req.body.password
   }
+  let userLogin = await Login.findUser(loginInfo);
 
-  const user = await Login.validateLogin(input);
+  const loginSuccess = await userLogin.logIn();
 
-  if (user) {
-    // Set the user's _id in the session
-    req.session.userId = user._id;
-    await Login.logIn(input);
-    console.log(user._id)
-    res.redirect('/')
+  if (userLogin) {
+    console.log(`User: ${userLogin} signed in `)
+    res.redirect('/');
+  } else {
+    res.redirect('/sign-in'); // Redirect to login page or display an error
   }
-  res.redirect('/')
-})
+});
 
 app.post('/Subscribe', async (req, res) => {
   try {
